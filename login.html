@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Login</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://kit.fontawesome.com/742b033e6c.js" crossorigin="anonymous"></script>
+
+  <style>
+    .btn-gradient {
+      background: linear-gradient(45deg, #007bff, #00c3ff);
+      border: 2px solid #0056b3;
+      color: white;
+      border-radius: 50px;
+      padding: 10px 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+      background: linear-gradient(45deg, #0056b3, #00aaff);
+      border-color: #003d80;
+    }
+  </style>
+</head>
+
+<body class="d-flex align-items-center justify-content-center vh-100"
+  style="background-image: url('pixelmind_images/background.png'); background-size: cover; background-position: center;">
+
+  <div class="w-100 p-4 shadow"
+    style="
+      max-width: 400px; 
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+    ">
+    
+    <!-- Circle Image -->
+    <div class="text-center mb-4">
+      <img src="pixelmind_images/login.png" alt="Login Image" class="img-fluid rounded-circle"
+        style="width: 150px; height: 150px; object-fit: cover;">
+    </div>
+
+    <!-- Welcome & Form -->
+    <h1 class="text-center mb-4">Welcome</h1>
+
+    <input id="username" type="text" placeholder="User name" class="form-control rounded-pill mb-3"/>
+
+    <input id="email" type="email" placeholder="Email" class="form-control rounded-pill mb-3"/>
+
+    <input id="password" type="password" placeholder="Password" class="form-control rounded-pill mb-4"/>
+
+    <div class="d-grid gap-2 text-center mb-4">
+      <button class="btn btn-gradient" type="button" onclick="validateForm()">Create Account</button>
+    </div>
+
+    <h5 class="text-center mb-3">Or You Can Join With</h5>
+
+    <div class="d-flex justify-content-center">
+      <i class="fa-brands fa-google fa-lg text-white p-3 bg-info rounded-circle mx-2"></i>
+      <i class="fa-brands fa-facebook-f fa-lg text-white p-3 bg-info rounded-circle mx-2"></i>
+      <i class="fa-brands fa-twitter fa-lg text-white p-3 bg-info rounded-circle mx-2"></i>
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{1,8}$/;
+
+      if (username === "") {
+        alert("Username is required.");
+        return;
+      }
+
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!passwordPattern.test(password)) {
+        alert("Password must have at least:\n- 1 uppercase letter\n- 1 lowercase letter\n- 1 special symbol\n- Maximum length: 8 characters.");
+        return;
+      }
+
+      alert("All inputs are valid! ✅");
+    }
+  </script>
+
+</body>
+</html>

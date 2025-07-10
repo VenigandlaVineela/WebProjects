@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .registration-form {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .registration-form h2 {
+      margin-bottom: 30px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .form-control.is-invalid,
+    .form-select.is-invalid {
+      border-color: #dc3545;
+    }
+
+    .invalid-feedback {
+      display: none;
+    }
+
+    .is-invalid ~ .invalid-feedback {
+      display: block;
+    }
+
+    .btn-custom {
+      background: linear-gradient(45deg, #007bff, #00c3ff);
+      border: none;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    .btn-custom:hover {
+      background: linear-gradient(45deg, #0056b3, #0099cc);
+    }
+  </style>
+</head>
+
+<body>
+
+  <form class="registration-form" id="regForm">
+    <h2>Registration Form</h2>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <input type="text" id="firstName" placeholder="First Name" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid First Name.</div>
+      </div>
+      <div class="col-md-4">
+        <input type="text" id="middleName" placeholder="Middle Name" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <input type="text" id="lastName" placeholder="Last Name" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Last Name.</div>
+      </div>
+
+      <div class="col-12">
+        <input type="email" id="email" placeholder="Email" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Email.</div>
+      </div>
+
+      <div class="col-md-4">
+        <select id="countryCode" class="form-select" required>
+          <option value="">Select Country Code</option>
+          <option value="+91">India (+91)</option>
+          <option value="+1">USA (+1)</option>
+          <option value="+44">UK (+44)</option>
+          <option value="+61">Australia (+61)</option>
+          <option value="+81">Japan (+81)</option>
+          <option value="+971">UAE (+971)</option>
+          <!-- Add more as needed -->
+        </select>
+        <div class="invalid-feedback">Please select a valid Country Code.</div>
+      </div>
+
+      <div class="col-md-8">
+        <input type="tel" id="phone" placeholder="Phone Number" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Phone Number.</div>
+      </div>
+
+      <div class="col-md-6">
+        <input type="text" id="qualification" placeholder="Qualification" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Qualification.</div>
+      </div>
+      <div class="col-md-6">
+        <input type="text" id="course" placeholder="Course" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Course.</div>
+      </div>
+
+      <div class="col-md-6">
+        <input type="number" id="passedOutYear" placeholder="Passed Out Year" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Passed Out Year.</div>
+      </div>
+      <div class="col-md-6">
+        <input type="date" id="dob" placeholder="Date of Birth" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid Date of Birth.</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-custom mt-4">Register</button>
+  </form>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Validation Script -->
+  <script>
+    const form = document.getElementById('regForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      validateForm();
+    });
+
+    function validateForm() {
+      let valid = true;
+
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const email = document.getElementById('email');
+      const countryCode = document.getElementById('countryCode');
+      const phone = document.getElementById('phone');
+      const qualification = document.getElementById('qualification');
+      const course = document.getElementById('course');
+      const passedOutYear = document.getElementById('passedOutYear');
+      const dob = document.getElementById('dob');
+
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      const phonePattern = /^[0-9]{7,15}$/;
+      const year = parseInt(passedOutYear.value);
+      const currentYear = new Date().getFullYear();
+
+      const checkField = (field, condition) => {
+        if (!condition) {
+          field.classList.add('is-invalid');
+          valid = false;
+        } else {
+          field.classList.remove('is-invalid');
+        }
+      }
+
+      checkField(firstName, firstName.value.trim() !== "");
+      checkField(lastName, lastName.value.trim() !== "");
+      checkField(email, emailPattern.test(email.value.trim()));
+      checkField(countryCode, countryCode.value !== "");
+      checkField(phone, phonePattern.test(phone.value.trim()));
+      checkField(qualification, qualification.value.trim() !== "");
+      checkField(course, course.value.trim() !== "");
+      checkField(passedOutYear, (year >= 1900 && year <= currentYear));
+      checkField(dob, dob.value.trim() !== "");
+
+      if (valid) {
+        alert("Form submitted successfully ✅");
+      }
+    }
+  </script>
+
+</body>
+
+</html>
